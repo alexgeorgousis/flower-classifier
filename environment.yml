@@ -1,0 +1,9 @@
+name: flower-classifier
+dependencies:
+- numpy
+- matplotlib
+- pip:
+  - tensorflow
+  - tensorflow-datasets
+  - pillow
+  -json
