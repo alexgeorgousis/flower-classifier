@@ -2,6 +2,7 @@ import argparse
 from utils import *
 
 IMAGE_SIZE = 224
+N_CLASSES = 102
 
 parser = argparse.ArgumentParser()
 
@@ -22,3 +23,15 @@ image = load_process_image(image_path, IMAGE_SIZE)
 
 # Make prediction to get the probabilities for each class
 probs = model.predict(image)[0]
+
+# Get class names
+class_names = list(range(1, N_CLASSES+1))
+
+# Report probability for each class
+print("\n|-----------|")
+print("Class: Probability")
+
+for i in range(len(class_names)):
+    print("{}: {}".format(class_names[i], np.format_float_positional(probs[i], precision=4)))
+
+print("|-----------|")
