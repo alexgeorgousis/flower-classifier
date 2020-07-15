@@ -52,8 +52,7 @@ if args.category_names:
     class_names = [class_names_map[str(n)] for n in class_names]
 
 # Report probability for each class
-print("\n|-----------|")
-print("Class: Probability")
+print("\nClass: Probability")
 
 for i in range(len(class_names)):
     print("{}: {}".format(class_names[i], np.format_float_positional(probs[i], precision=4)))
