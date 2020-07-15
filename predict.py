@@ -1,4 +1,5 @@
 import argparse
+from utils import *
 
 parser = argparse.ArgumentParser()
 
@@ -10,3 +11,6 @@ args = parser.parse_args()
 # Get arg values
 image_path = args.image_path
 model_path = args.model_path
+
+# Load model
+model = load_model(model_path)
