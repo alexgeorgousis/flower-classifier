@@ -35,6 +35,12 @@ if args.top_k:
     class_names = probs.argsort()[::-1][:int(args.top_k)] + 1  # sort probs, get the top k indices, broadcast operation "+1" to turn indices into class names
     probs = probs[class_names - 1]                             # turn class names back to indices (broadcast operation "-1")
 
+else:
+    # Get the most likely class and its probability
+    top_class_idx = probs.argsort()[::-1][0]
+    class_names = [top_class_idx + 1]
+    probs = [probs[top_class_idx]]
+
 # Map class numbers to category names (if relevant CLI argument was passed)
 if args.category_names:
 
