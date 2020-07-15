@@ -9,6 +9,7 @@ parser = argparse.ArgumentParser()
 # Specify CLI args and parse them
 parser.add_argument("image_path", help="specify the path to the image you want to classify")
 parser.add_argument("model_path", help="specify the path to the Keras model (HDF5 file) you want to use to make the prediction")
+parser.add_argument("--category_names", help="specify a JSON file that contains the category names")
 args = parser.parse_args()
 
 # Get arg values
