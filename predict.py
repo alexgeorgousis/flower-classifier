@@ -34,7 +34,7 @@ class_names = list(range(1, N_CLASSES+1))
 if args.category_names:
 
     # Load dictionary from JSON file
-    with open('label_map.json', 'r') as f:
+    with open(args.category_names, 'r') as f:
         class_names_map = json.load(f)
 
     # Map class numbers to category names
