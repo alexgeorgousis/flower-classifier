@@ -1,4 +1,5 @@
 import argparse
+import json
 from utils import *
 
 IMAGE_SIZE = 224
@@ -27,6 +28,16 @@ probs = model.predict(image)[0]
 
 # Get class names
 class_names = list(range(1, N_CLASSES+1))
+
+# Map class numbers to category names (if relevant CLI argument was passed)
+if args.category_names:
+
+    # Load dictionary from JSON file
+    with open('label_map.json', 'r') as f:
+        class_names_map = json.load(f)
+
+    # Map class numbers to category names
+    class_names = [class_names_map[str(n)] for n in class_names]
 
 # Report probability for each class
 print("\n|-----------|")
