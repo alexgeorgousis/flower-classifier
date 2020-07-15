@@ -7,8 +7,8 @@ N_CLASSES = 102
 parser = argparse.ArgumentParser()
 
 # Specify CLI args and parse them
-parser.add_argument("image_path")
-parser.add_argument("model_path")
+parser.add_argument("image_path", help="specify the path to the image you want to classify")
+parser.add_argument("model_path", help="specify the path to the Keras model (HDF5 file) you want to use to make the prediction")
 args = parser.parse_args()
 
 # Get arg values
@@ -33,5 +33,3 @@ print("Class: Probability")
 
 for i in range(len(class_names)):
     print("{}: {}".format(class_names[i], np.format_float_positional(probs[i], precision=4)))
-
-print("|-----------|")
