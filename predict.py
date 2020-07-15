@@ -19,3 +19,6 @@ model = load_model(model_path)
 
 # Load and process image
 image = load_process_image(image_path, IMAGE_SIZE)
+
+# Make prediction to get the probabilities for each class
+probs = model.predict(image)[0]
