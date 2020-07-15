@@ -18,3 +18,6 @@ See `environment.yml` for the full list of dependencies. If you use conda, you c
 ```
 $ conda env create --file environment.yml
 ```
+
+# License
+This project is maintainted under the [MIT License](https://opensource.org/licenses/MIT).
