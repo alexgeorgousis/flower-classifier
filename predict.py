@@ -1,6 +1,8 @@
 import argparse
 from utils import *
 
+IMAGE_SIZE = 224
+
 parser = argparse.ArgumentParser()
 
 # Specify CLI args and parse them
@@ -14,3 +16,6 @@ model_path = args.model_path
 
 # Load model
 model = load_model(model_path)
+
+# Load and process image
+image = load_process_image(image_path, IMAGE_SIZE)
