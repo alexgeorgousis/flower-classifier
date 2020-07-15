@@ -30,6 +30,11 @@ probs = model.predict(image)[0]
 # Get class names
 class_names = list(range(1, N_CLASSES+1))
 
+# Filter class names and probs to only contain info for the top k classes
+if args.top_k:
+    class_names = probs.argsort()[::-1][:int(args.top_k)] + 1  # sort probs, get the top k indices, broadcast operation "+1" to turn indices into class names
+    probs = probs[class_names - 1]                             # turn class names back to indices (broadcast operation "-1")
+
 # Map class numbers to category names (if relevant CLI argument was passed)
 if args.category_names:
 
