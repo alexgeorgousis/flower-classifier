@@ -2,7 +2,7 @@
 <html>
 <head><meta charset="utf-8" />
 
-<title>Project_Image_Classifier_Project</title>
+<title>flower_classifier</title>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
@@ -13077,17 +13077,14 @@ div#notebook {
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h1 id="Flower-Classifier">Flower Classifier<a class="anchor-link" href="#Flower-Classifier">&#182;</a></h1><p>Going forward, AI algorithms will be incorporated into more and more everyday applications. For example, you might want to include an image classifier in a smart phone app. To do this, you'd use a deep learning model trained on hundreds of thousands of images as part of the overall application architecture. A large part of software development in the future will be using these types of models as common parts of applications.</p>
-<p>In this project, you'll train an image classifier to recognize different species of flowers. You can imagine using something like this in a phone app that tells you the name of the flower your camera is looking at. In practice you'd train this classifier, then export it for use in your application. We'll be using <a href="http://www.robots.ox.ac.uk/~vgg/data/flowers/102/index.html">this dataset</a> from Oxford of 102 flower categories, you can see a few examples below.</p>
+<h1 id="Flower-Classifier">Flower Classifier<a class="anchor-link" href="#Flower-Classifier">&#182;</a></h1><p>In this project, we trained an image classifier to recognize different species of flowers. We used <a href="http://www.robots.ox.ac.uk/~vgg/data/flowers/102/index.html">this dataset</a> from Oxford of 102 flower categories. A few examples can be seen below.</p>
 <p><img src='assets/Flowers.png' width=500px></p>
-<p>The project is broken down into multiple steps:</p>
+<p>The project was broken down into multiple steps:</p>
 <ul>
 <li>Load the image dataset and create a pipeline.</li>
 <li>Build and Train an image classifier on this dataset.</li>
-<li>Use your trained model to perform inference on flower images.</li>
+<li>Use the trained model to perform inference on flower images.</li>
 </ul>
-<p>We'll lead you through each part which you'll implement in Python.</p>
-<p>When you've completed this project, you'll have an application that can be trained on any set of labeled images. Here your network will be learning about flowers and end up as a command line application. But, what you do with your new skills depends on your imagination and effort in building a dataset. For example, imagine an app where you take a picture of a car, it tells you what the make and model is, then looks up information about it. Go build your own dataset and make something new.</p>
 
 </div>
 </div>
@@ -13101,7 +13098,7 @@ div#notebook {
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[8]:</div>
+<div class="prompt input_prompt">In&nbsp;[3]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Make all necessary imports.</span>
@@ -13125,15 +13122,14 @@ div#notebook {
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Load-the-Dataset">Load the Dataset<a class="anchor-link" href="#Load-the-Dataset">&#182;</a></h2><p>Here you'll use <code>tensorflow_datasets</code> to load the <a href="https://www.tensorflow.org/datasets/catalog/oxford_flowers102">Oxford Flowers 102 dataset</a>. This dataset has 3 splits: <code>'train'</code>, <code>'test'</code>, and <code>'validation'</code>.  You'll also need to make sure the training data is normalized and resized to 224x224 pixels as required by the pre-trained networks.</p>
-<p>The validation and testing sets are used to measure the model's performance on data it hasn't seen yet, but you'll still need to normalize and resize the images to the appropriate size.</p>
+<h2 id="Load-the-Dataset">Load the Dataset<a class="anchor-link" href="#Load-the-Dataset">&#182;</a></h2><p>We used <code>tensorflow_datasets</code> to load the <a href="https://www.tensorflow.org/datasets/catalog/oxford_flowers102">Oxford Flowers 102 dataset</a>. This dataset has 3 splits: <code>'train'</code>, <code>'test'</code>, and <code>'validation'</code>.  We also made sure the training data is normalized and resized to 224x224 pixels as required by the pre-trained networks (used later).</p>
 
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[2]:</div>
+<div class="prompt input_prompt">In&nbsp;[4]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Load the dataset with TensorFlow Datasets.</span>
@@ -13159,7 +13155,7 @@ div#notebook {
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[3]:</div>
+<div class="prompt input_prompt">In&nbsp;[5]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Get the number of examples in each set from the dataset info.</span>
@@ -13201,7 +13197,7 @@ Number of classes: 102
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[4]:</div>
+<div class="prompt input_prompt">In&nbsp;[6]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Print the shape and corresponding label of 3 images in the training set.</span>
@@ -13242,7 +13238,7 @@ Image label: 70
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[5]:</div>
+<div class="prompt input_prompt">In&nbsp;[7]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Plot 1 image from the training set. Set the title </span>
@@ -13283,14 +13279,14 @@ Image label: 70
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Label-Mapping">Label Mapping<a class="anchor-link" href="#Label-Mapping">&#182;</a></h3><p>You'll also need to load in a mapping from label to category name. You can find this in the file <code>label_map.json</code>. It's a JSON object which you can read in with the <a href="https://docs.python.org/3.7/library/json.html"><code>json</code> module</a>. This will give you a dictionary mapping the integer coded labels to the actual names of the flowers.</p>
+<h3 id="Label-Mapping">Label Mapping<a class="anchor-link" href="#Label-Mapping">&#182;</a></h3><p>We loaded in a mapping from label to category name. This can be found in the file <code>label_map.json</code>.</p>
 
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[6]:</div>
+<div class="prompt input_prompt">In&nbsp;[8]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;label_map.json&#39;</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
@@ -13304,15 +13300,14 @@ Image label: 70
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[7]:</div>
+<div class="prompt input_prompt">In&nbsp;[9]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Plot 1 image from the training set. Set the title </span>
-<span class="c1"># of the plot to the corresponding class name. </span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Plot 1 image from the training set.</span>
 <span class="k">for</span> <span class="n">image</span><span class="p">,</span> <span class="n">label</span> <span class="ow">in</span> <span class="n">training_set</span><span class="o">.</span><span class="n">take</span><span class="p">(</span><span class="mi">1</span><span class="p">):</span>
     <span class="n">img</span> <span class="o">=</span> <span class="n">image</span><span class="o">.</span><span class="n">numpy</span><span class="p">()</span>
     <span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">img</span><span class="p">)</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="n">class_names</span><span class="p">[</span><span class="nb">str</span><span class="p">(</span><span class="n">label</span><span class="o">.</span><span class="n">numpy</span><span class="p">())])</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="n">class_names</span><span class="p">[</span><span class="nb">str</span><span class="p">(</span><span class="n">label</span><span class="o">.</span><span class="n">numpy</span><span class="p">())])</span> <span class="c1"># set the title of the plot to the corresponding class name</span>
 </pre></div>
 
     </div>
@@ -13378,19 +13373,15 @@ Image label: 70
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h1 id="Build-and-Train-the-Classifier">Build and Train the Classifier<a class="anchor-link" href="#Build-and-Train-the-Classifier">&#182;</a></h1><p>Now that the data is ready, it's time to build and train the classifier. You should use the MobileNet pre-trained model from TensorFlow Hub to get the image features. Build and train a new feed-forward classifier using those features.</p>
-<p>We're going to leave this part up to you. If you want to talk through it with someone, chat with your fellow students!</p>
-<p>Refer to the rubric for guidance on successfully completing this section. Things you'll need to do:</p>
+<h1 id="Build-and-Train-the-Classifier">Build and Train the Classifier<a class="anchor-link" href="#Build-and-Train-the-Classifier">&#182;</a></h1><p>We used the MobileNet pre-trained model from TensorFlow Hub to get the image features. We then built and trained a new feed-forward classifier using those features.</p>
+<p>What we did in this section:</p>
 <ul>
 <li>Load the MobileNet pre-trained network from TensorFlow Hub.</li>
 <li>Define a new, untrained feed-forward network as a classifier.</li>
 <li>Train the classifier.</li>
 <li>Plot the loss and accuracy values achieved during training for the training and validation set.</li>
-<li>Save your trained model as a Keras model. </li>
+<li>Save the trained model as a Keras model. </li>
 </ul>
-<p>We've left a cell open for you below, but use as many as you need. Our advice is to break the problem up into smaller parts you can run separately. Check that each part is doing what you expect, then move on to the next. You'll likely find that as you work through each part, you'll need to go back and modify your previous code. This is totally normal!</p>
-<p>When training make sure you're updating only the weights of the feed-forward network. You should be able to get the validation accuracy above 70% if you build everything right.</p>
-<p><strong>Note for Workspace users:</strong> One important tip if you're using the workspace to run your code: To avoid having your workspace disconnect during the long-running tasks in this notebook, please read in the earlier page in this lesson called Intro to GPU Workspaces about Keeping Your Session Active. You'll want to include code from the workspace_utils.py module. Also, If your model is over 1 GB when saved as a checkpoint, there might be issues with saving backups in your workspace. If your saved checkpoint is larger than 1 GB (you can open a terminal and check with <code>ls -lh</code>), you should reduce the size of your hidden layers and train again.</p>
 
 </div>
 </div>
@@ -13469,7 +13460,7 @@ _________________________________________________________________
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[38]:</div>
+<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Train the model</span>
@@ -13489,83 +13480,6 @@ _________________________________________________________________
 </pre></div>
 
     </div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area">
-
-    <div class="prompt"></div>
-
-
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>Epoch 1/30
-32/32 [==============================] - 41s 1s/step - loss: 4.5563 - accuracy: 0.0245 - val_loss: 4.2810 - val_accuracy: 0.0971
-Epoch 2/30
-32/32 [==============================] - 40s 1s/step - loss: 3.9365 - accuracy: 0.1480 - val_loss: 3.6713 - val_accuracy: 0.2333
-Epoch 3/30
-32/32 [==============================] - 39s 1s/step - loss: 3.1916 - accuracy: 0.2961 - val_loss: 2.9905 - val_accuracy: 0.4186
-Epoch 4/30
-32/32 [==============================] - 40s 1s/step - loss: 2.5054 - accuracy: 0.4608 - val_loss: 2.3852 - val_accuracy: 0.5471
-Epoch 5/30
-32/32 [==============================] - 39s 1s/step - loss: 1.8537 - accuracy: 0.5853 - val_loss: 1.9720 - val_accuracy: 0.6049
-Epoch 6/30
-32/32 [==============================] - 38s 1s/step - loss: 1.4633 - accuracy: 0.6873 - val_loss: 1.7048 - val_accuracy: 0.6529
-Epoch 7/30
-32/32 [==============================] - 38s 1s/step - loss: 1.2130 - accuracy: 0.7373 - val_loss: 1.5193 - val_accuracy: 0.6775
-Epoch 8/30
-32/32 [==============================] - 40s 1s/step - loss: 0.9985 - accuracy: 0.7931 - val_loss: 1.4288 - val_accuracy: 0.6833
-Epoch 9/30
-32/32 [==============================] - 40s 1s/step - loss: 0.8762 - accuracy: 0.8196 - val_loss: 1.3162 - val_accuracy: 0.6902
-Epoch 10/30
-32/32 [==============================] - 40s 1s/step - loss: 0.7350 - accuracy: 0.8529 - val_loss: 1.2074 - val_accuracy: 0.7176
-Epoch 11/30
-32/32 [==============================] - 41s 1s/step - loss: 0.6024 - accuracy: 0.8755 - val_loss: 1.1565 - val_accuracy: 0.7206
-Epoch 12/30
-32/32 [==============================] - 41s 1s/step - loss: 0.5466 - accuracy: 0.8922 - val_loss: 1.1053 - val_accuracy: 0.7333
-Epoch 13/30
-32/32 [==============================] - 41s 1s/step - loss: 0.4458 - accuracy: 0.9147 - val_loss: 1.0591 - val_accuracy: 0.7382
-Epoch 14/30
-32/32 [==============================] - 40s 1s/step - loss: 0.3919 - accuracy: 0.9265 - val_loss: 1.0349 - val_accuracy: 0.7431
-Epoch 15/30
-32/32 [==============================] - 40s 1s/step - loss: 0.3566 - accuracy: 0.9412 - val_loss: 0.9929 - val_accuracy: 0.7559
-Epoch 16/30
-32/32 [==============================] - 39s 1s/step - loss: 0.3195 - accuracy: 0.9461 - val_loss: 0.9750 - val_accuracy: 0.7608
-Epoch 17/30
-32/32 [==============================] - 40s 1s/step - loss: 0.2876 - accuracy: 0.9578 - val_loss: 0.9383 - val_accuracy: 0.7520
-Epoch 18/30
-32/32 [==============================] - 40s 1s/step - loss: 0.2539 - accuracy: 0.9637 - val_loss: 0.9474 - val_accuracy: 0.7657
-Epoch 19/30
-32/32 [==============================] - 39s 1s/step - loss: 0.2335 - accuracy: 0.9569 - val_loss: 0.9344 - val_accuracy: 0.7539
-Epoch 20/30
-32/32 [==============================] - 39s 1s/step - loss: 0.2272 - accuracy: 0.9647 - val_loss: 0.9267 - val_accuracy: 0.7559
-Epoch 21/30
-32/32 [==============================] - 39s 1s/step - loss: 0.2019 - accuracy: 0.9686 - val_loss: 0.8981 - val_accuracy: 0.7637
-Epoch 22/30
-32/32 [==============================] - 38s 1s/step - loss: 0.1870 - accuracy: 0.9686 - val_loss: 0.9025 - val_accuracy: 0.7716
-Epoch 23/30
-32/32 [==============================] - 39s 1s/step - loss: 0.1705 - accuracy: 0.9814 - val_loss: 0.8858 - val_accuracy: 0.7686
-Epoch 24/30
-32/32 [==============================] - 39s 1s/step - loss: 0.1668 - accuracy: 0.9804 - val_loss: 0.8834 - val_accuracy: 0.7676
-Epoch 25/30
-32/32 [==============================] - 39s 1s/step - loss: 0.1484 - accuracy: 0.9804 - val_loss: 0.8760 - val_accuracy: 0.7716
-Epoch 26/30
-32/32 [==============================] - 41s 1s/step - loss: 0.1591 - accuracy: 0.9775 - val_loss: 0.8787 - val_accuracy: 0.7549
-Epoch 27/30
-32/32 [==============================] - 38s 1s/step - loss: 0.1182 - accuracy: 0.9882 - val_loss: 0.8639 - val_accuracy: 0.7676
-Epoch 28/30
-32/32 [==============================] - 40s 1s/step - loss: 0.1281 - accuracy: 0.9853 - val_loss: 0.8608 - val_accuracy: 0.7716
-Epoch 29/30
-32/32 [==============================] - 39s 1s/step - loss: 0.1327 - accuracy: 0.9794 - val_loss: 0.8555 - val_accuracy: 0.7745
-Epoch 30/30
-32/32 [==============================] - 39s 1s/step - loss: 0.0974 - accuracy: 0.9873 - val_loss: 0.8457 - val_accuracy: 0.7618
-</pre>
-</div>
-</div>
-
 </div>
 </div>
 
@@ -13643,8 +13557,7 @@ Epoch 30/30
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Testing-your-Network">Testing your Network<a class="anchor-link" href="#Testing-your-Network">&#182;</a></h2><p>It's good practice to test your trained network on test data, images the network has never seen either in training or validation. This will give you a good estimate for the model's performance on completely new images. You should be able to reach around 70% accuracy on the test set if the model has been trained well.</p>
-
+<h2 id="Testing-the-Network">Testing the Network<a class="anchor-link" href="#Testing-the-Network">&#182;</a></h2>
 </div>
 </div>
 </div>
@@ -13686,7 +13599,7 @@ Accuracy: 0.7477638721466064
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Save-the-Model">Save the Model<a class="anchor-link" href="#Save-the-Model">&#182;</a></h2><p>Now that your network is trained, save the model so you can load it later for making inference. In the cell below save your model as a Keras model (<em>i.e.</em> save it as an HDF5 file).</p>
+<h2 id="Save-the-Model">Save the Model<a class="anchor-link" href="#Save-the-Model">&#182;</a></h2><p>We saved the model as a Keras model (<em>i.e.</em> as an HDF5 file) to be loadable using Keras.</p>
 
 </div>
 </div>
@@ -13708,8 +13621,7 @@ Accuracy: 0.7477638721466064
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Load-the-Keras-Model">Load the Keras Model<a class="anchor-link" href="#Load-the-Keras-Model">&#182;</a></h2><p>Load the Keras model you saved above.</p>
-
+<h2 id="Load-the-Keras-Model">Load the Keras Model<a class="anchor-link" href="#Load-the-Keras-Model">&#182;</a></h2>
 </div>
 </div>
 </div>
@@ -13730,22 +13642,7 @@ Accuracy: 0.7477638721466064
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h1 id="Inference-for-Classification">Inference for Classification<a class="anchor-link" href="#Inference-for-Classification">&#182;</a></h1><p>Now you'll write a function that uses your trained network for inference. Write a function called <code>predict</code> that takes an image, a model, and then returns the top $K$ most likely class labels along with the probabilities. The function call should look like:</p>
-<div class="highlight"><pre><span></span><span class="n">probs</span><span class="p">,</span> <span class="n">classes</span> <span class="o">=</span> <span class="n">predict</span><span class="p">(</span><span class="n">image_path</span><span class="p">,</span> <span class="n">model</span><span class="p">,</span> <span class="n">top_k</span><span class="p">)</span>
-</pre></div>
-<p>If <code>top_k=5</code> the output of the <code>predict</code> function should be something like this:</p>
-<div class="highlight"><pre><span></span><span class="n">probs</span><span class="p">,</span> <span class="n">classes</span> <span class="o">=</span> <span class="n">predict</span><span class="p">(</span><span class="n">image_path</span><span class="p">,</span> <span class="n">model</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">probs</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">classes</span><span class="p">)</span>
-<span class="o">&gt;</span> <span class="p">[</span> <span class="mf">0.01558163</span>  <span class="mf">0.01541934</span>  <span class="mf">0.01452626</span>  <span class="mf">0.01443549</span>  <span class="mf">0.01407339</span><span class="p">]</span>
-<span class="o">&gt;</span> <span class="p">[</span><span class="s1">&#39;70&#39;</span><span class="p">,</span> <span class="s1">&#39;3&#39;</span><span class="p">,</span> <span class="s1">&#39;45&#39;</span><span class="p">,</span> <span class="s1">&#39;62&#39;</span><span class="p">,</span> <span class="s1">&#39;55&#39;</span><span class="p">]</span>
-</pre></div>
-<p>Your <code>predict</code> function should use <code>PIL</code> to load the image from the given <code>image_path</code>. You can use the <a href="https://pillow.readthedocs.io/en/latest/reference/Image.html#PIL.Image.open">Image.open</a> function to load the images. The <code>Image.open()</code> function returns an <code>Image</code> object. You can convert this <code>Image</code> object to a NumPy array by using the <code>np.asarray()</code> function.</p>
-<p>The <code>predict</code> function will also need to handle pre-processing the input image such that it can be used by your model. We recommend you write a separate function called <code>process_image</code> that performs the pre-processing. You can then call the <code>process_image</code> function from the <code>predict</code> function.</p>
-<h3 id="Image-Pre-processing">Image Pre-processing<a class="anchor-link" href="#Image-Pre-processing">&#182;</a></h3><p>The <code>process_image</code> function should take in an image (in the form of a NumPy array) and return an image in the form of a NumPy array with shape <code>(224, 224, 3)</code>.</p>
-<p>First, you should convert your image into a TensorFlow Tensor and then resize it to the appropriate size using <code>tf.image.resize</code>.</p>
-<p>Second, the pixel values of the input images are typically encoded as integers in the range 0-255, but the model expects the pixel values to be floats in the range 0-1. Therefore, you'll also need to normalize the pixel values.</p>
-<p>Finally, convert your image back to a NumPy array using the <code>.numpy()</code> method.</p>
+<h1 id="Inference-for-Classification">Inference for Classification<a class="anchor-link" href="#Inference-for-Classification">&#182;</a></h1><h3 id="Image-Pre-processing">Image Pre-processing<a class="anchor-link" href="#Image-Pre-processing">&#182;</a></h3><p>The <code>process_image</code> function takes in an image (in the form of a NumPy array) and returns an image in the form of a NumPy array with shape <code>(224, 224, 3)</code>.</p>
 
 </div>
 </div>
@@ -13770,14 +13667,7 @@ Accuracy: 0.7477638721466064
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>To check your <code>process_image</code> function we have provided 4 images in the <code>./test_images/</code> folder:</p>
-<ul>
-<li>cautleya_spicata.jpg</li>
-<li>hard-leaved_pocket_orchid.jpg</li>
-<li>orange_dahlia.jpg</li>
-<li>wild_pansy.jpg</li>
-</ul>
-<p>The code below loads one of the above images using <code>PIL</code> and plots the original image alongside the image produced by your <code>process_image</code> function. If your <code>process_image</code> function works, the plotted image should be the correct size.</p>
+<p>The code below loads one of the above images using <code>PIL</code> and plots the original image alongside the image produced by the <code>process_image</code> function.</p>
 
 </div>
 </div>
@@ -13834,19 +13724,7 @@ Accuracy: 0.7477638721466064
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>Once you can get images in the correct format, it's time to write the <code>predict</code> function for making inference with your model.</p>
-<h3 id="Inference">Inference<a class="anchor-link" href="#Inference">&#182;</a></h3><p>Remember, the <code>predict</code> function should take an image, a model, and then returns the top $K$ most likely class labels along with the probabilities. The function call should look like:</p>
-<div class="highlight"><pre><span></span><span class="n">probs</span><span class="p">,</span> <span class="n">classes</span> <span class="o">=</span> <span class="n">predict</span><span class="p">(</span><span class="n">image_path</span><span class="p">,</span> <span class="n">model</span><span class="p">,</span> <span class="n">top_k</span><span class="p">)</span>
-</pre></div>
-<p>If <code>top_k=5</code> the output of the <code>predict</code> function should be something like this:</p>
-<div class="highlight"><pre><span></span><span class="n">probs</span><span class="p">,</span> <span class="n">classes</span> <span class="o">=</span> <span class="n">predict</span><span class="p">(</span><span class="n">image_path</span><span class="p">,</span> <span class="n">model</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">probs</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">classes</span><span class="p">)</span>
-<span class="o">&gt;</span> <span class="p">[</span> <span class="mf">0.01558163</span>  <span class="mf">0.01541934</span>  <span class="mf">0.01452626</span>  <span class="mf">0.01443549</span>  <span class="mf">0.01407339</span><span class="p">]</span>
-<span class="o">&gt;</span> <span class="p">[</span><span class="s1">&#39;70&#39;</span><span class="p">,</span> <span class="s1">&#39;3&#39;</span><span class="p">,</span> <span class="s1">&#39;45&#39;</span><span class="p">,</span> <span class="s1">&#39;62&#39;</span><span class="p">,</span> <span class="s1">&#39;55&#39;</span><span class="p">]</span>
-</pre></div>
-<p>Your <code>predict</code> function should use <code>PIL</code> to load the image from the given <code>image_path</code>. You can use the <a href="https://pillow.readthedocs.io/en/latest/reference/Image.html#PIL.Image.open">Image.open</a> function to load the images. The <code>Image.open()</code> function returns an <code>Image</code> object. You can convert this <code>Image</code> object to a NumPy array by using the <code>np.asarray()</code> function.</p>
-<p><strong>Note:</strong> The image returned by the <code>process_image</code> function is a NumPy array with shape <code>(224, 224, 3)</code> but the model expects the input images to be of shape <code>(1, 224, 224, 3)</code>. This extra dimension represents the batch size. We suggest you use the <code>np.expand_dims()</code> function to add the extra dimension.</p>
+<h3 id="Inference">Inference<a class="anchor-link" href="#Inference">&#182;</a></h3><p>The <code>predict</code> function takes an image and a model, and then returns the top $K$ most likely class labels along with the probabilities.</p>
 
 </div>
 </div>
@@ -13885,16 +13763,7 @@ Accuracy: 0.7477638721466064
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h1 id="Sanity-Check">Sanity Check<a class="anchor-link" href="#Sanity-Check">&#182;</a></h1><p>It's always good to check the predictions made by your model to make sure they are correct. To check your predictions we have provided 4 images in the <code>./test_images/</code> folder:</p>
-<ul>
-<li>cautleya_spicata.jpg</li>
-<li>hard-leaved_pocket_orchid.jpg</li>
-<li>orange_dahlia.jpg</li>
-<li>wild_pansy.jpg</li>
-</ul>
-<p>In the cell below use <code>matplotlib</code> to plot the input image alongside the probabilities for the top 5 classes predicted by your model. Plot the probabilities as a bar graph. The plot should look like this:</p>
-<p><img src='assets/inference_example.png' width=600px></p>
-<p>You can convert from the class integer labels to actual flower names using <code>class_names</code>.</p>
+<h1 id="Sanity-Check">Sanity Check<a class="anchor-link" href="#Sanity-Check">&#182;</a></h1><p>In the cell below we used <code>matplotlib</code> to plot the input image alongside the probabilities for the top 5 classes predicted by the model. We plot the probabilities as a bar graph.</p>
 
 </div>
 </div>
@@ -13944,19 +13813,6 @@ Accuracy: 0.7477638721466064
 
 </div>
 
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span> 
-</pre></div>
-
-    </div>
 </div>
 </div>
 
